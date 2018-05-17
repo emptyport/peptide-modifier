@@ -1,0 +1,34 @@
+{
+  "name": "peptide-modifier",
+  "version": "0.0.1",
+  "description": "A module to provide the potential modification sites of a peptide",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test/test-index.js | tap-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emptyport/peptide-modifier.git"
+  },
+  "keywords": [
+    "peptide",
+    "protein",
+    "chemistry",
+    "modification"
+  ],
+  "author": "Michael Porter <michaelporter.chemistry@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emptyport/peptide-modifier/issues"
+  },
+  "homepage": "https://github.com/emptyport/peptide-modifier#readme",
+  "devDependencies": {
+    "tap-spec": "^4.1.1",
+    "tape": "^4.9.0"
+  },
+  "dependencies": {
+  },
+  "directories": {
+    "test": "test"
+  }
+}
