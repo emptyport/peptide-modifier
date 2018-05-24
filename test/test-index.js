@@ -1,18 +1,51 @@
-var emass_lib = require('../index');
+var pepMod = require('../index');
 var test = require('tape');
 
-test('Default Settings', function(t) {
-  var emass = new emass_lib();
-  var formula = new molFormula('H2O');
-  var isotopes = emass.calculate(formula.composition, 0);
+test('Only fixed modifications works', function(t) {
+  var modList = [
+    {
+      'name': 'carbamidomethylation',
+      'residues': ['C'],
+      'type': 'fixed',
+      'mass': 57.02
+    }
+  ];
+  var mods = pepMod.modify('THECATISMAD', modList, 0);
+  t.equal(mods.length, 1, 'Modification length is correct');
+  t.equal(mods[0][0]['position'], 3, 'Modification is in correct place');
+  t.end();
+});
 
-  t.equal(isotopes.length, 3, 'Number of peaks');
-  t.equal(isotopes[0].Mass, 18.010565, 'm0 correct');
-  t.equal(isotopes[1].Mass, 19.015557, 'm1 correct');
-  t.equal(isotopes[2].Mass, 20.014810, 'm2 correct');
-  t.equal(isotopes[0].Abundance, 1.00000000, 'i0 correct');
-  t.equal(isotopes[1].Abundance, 0.00061095, 'i1 correct');
-  t.equal(isotopes[2].Abundance, 0.00205509, 'i2 correct');
+test('Only variable modifications works', function(t) {
+  var modList = [
+    {
+      'name': 'oxidation',
+      'residues': ['M'],
+      'type': 'variable',
+      'mass': 16
+    }
+  ];
+  var mods = pepMod.modify('ILOVEMOM', modList, 2);
+  t.equal(mods.length, 4, 'Modification length is correct');
+  
+  var count = 0;
+  for(var i=0; i<mods.length; i++) {
+    var modomer = mods[i];
+    if(modomer.length === 2) {
+      t.equal(modomer[0]['position'], 5, 'First position correct');
+      t.equal(modomer[1]['position'], 7, 'Second position correct');
+    }
+    if(modomer.length === 1) {
+      count++;
+    }
+  }
+  t.equal(mods[0][3], undefined, 'Last mod is empty');
+  t.equal(count, 2, 'Two entries with single modification site');
+  t.end();
+});
+
+test('Setting the number of variable modifications works', function(t) {
+
   t.end();
 });
 

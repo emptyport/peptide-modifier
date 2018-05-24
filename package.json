@@ -27,6 +27,7 @@
     "tape": "^4.9.0"
   },
   "dependencies": {
+    "js-unimod": "^1.0.0"
   },
   "directories": {
     "test": "test"
