@@ -2,7 +2,7 @@ var pepMod = require("./index");
 
 var modList = [
   {
-    'name': 'carb',
+    'name': 'Carbamidomethylation',
     'residues': ['C'],
     'type': 'fixed',
     'mass': 57.02
@@ -10,23 +10,17 @@ var modList = [
   {
     'name': 'oxidation',
     'residues': ['M'],
-    'type': 'variable',
+    'type': 'variable'
   },
   {
     'name': 'n-terminal acetyl',
-    'residues': ['[A'],
+    'residues': ['[K'],
     'type': 'variable',
-    'mass': 10.5
-  },
-  {
-    'name': 'oxidation',
-    'residues': [']'],
-    'type': 'variable'
+    'mass': 42
   }
-
 ];
 
-var mods = pepMod.modify('ACMAALMNP', modList, 2);
+var mods = pepMod.modify('KARATECAMPKID', modList, 2);
 console.log(mods);
 
 

@@ -89,3 +89,87 @@ test('Testing unimod integration', function(t) {
   t.end();
 });
 
+test('N-terminal modifications', function(t) {
+  var modList = [
+    {
+      'name': 'N-acetyl',
+      'residues': ['['],
+      'type': 'fixed',
+      'mass': 42
+    }
+  ];
+  
+  var mods = pepMod.modify('ACETYL', modList, 0);
+  t.equal(mods.length, 1, 'Modification added');
+  t.equal(mods[0][0]['position'], 0, 'Modification on N-terminus');
+
+  modList = [
+    {
+      'name': 'N-acetyl of K',
+      'residues': ['[K'],
+      'type': 'fixed',
+      'mass': 42
+    }
+  ];
+  mods = pepMod.modify('KARATEKID', modList, 0);
+  t.equal(mods.length, 1, 'Only one modification added');
+  t.equal(mods[0][0]['position'], 0, 'Modification on N-terminus');
+  t.end();
+});
+
+test('C-terminal modifications', function(t) {
+  var modList = [
+    {
+      'name': 'C-oxidation',
+      'residues': [']'],
+      'type': 'fixed',
+      'mass': 16
+    }
+  ];
+
+  var mods = pepMod.modify('EVILSHERRYPEPPER', modList, 0);
+  t.equal(mods.length, 1, 'Modification added');
+  t.equal(mods[0][0]['position'], 15, 'Modification on C-terminus');
+
+  modList = [
+    {
+      'name': 'C-oxidation',
+      'residues': ['R]'],
+      'type': 'fixed',
+      'mass': 16
+    }
+  ];
+
+  mods = pepMod.modify('EVILSHERRYPEPPER', modList, 0);
+  t.equal(mods.length, 1, 'Only one modification added');
+  t.equal(mods[0][0]['position'], 15, 'Modification on C-terminus');
+  t.end();
+});
+
+test('Making sure it works with a mix of everything', function(t) {
+  var modList = [
+    {
+      'name': 'Carbamidomethylation',
+      'residues': ['C'],
+      'type': 'fixed',
+      'mass': 57.02
+    },
+    {
+      'name': 'oxidation',
+      'residues': ['M'],
+      'type': 'variable'
+    },
+    {
+      'name': 'n-terminal acetyl',
+      'residues': ['[K'],
+      'type': 'variable',
+      'mass': 42
+    }
+  ];
+
+  var mods = pepMod.modify('KARATECAMPKID', modList, 2);
+  t.equal(mods.length, 4, 'Correct number of modifications added');
+  t.end();
+});
+
+
