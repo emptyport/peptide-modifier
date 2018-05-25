@@ -1,7 +1,7 @@
 var pepMod = require('../index');
 var test = require('tape');
 
-test('Only fixed modifications works', function(t) {
+test('Using only fixed modifications works', function(t) {
   var modList = [
     {
       'name': 'carbamidomethylation',
@@ -16,7 +16,7 @@ test('Only fixed modifications works', function(t) {
   t.end();
 });
 
-test('Only variable modifications works', function(t) {
+test('Using only variable modifications works', function(t) {
   var modList = [
     {
       'name': 'oxidation',
@@ -45,6 +45,46 @@ test('Only variable modifications works', function(t) {
 });
 
 test('Setting the number of variable modifications works', function(t) {
+  var modList = [
+    {
+      'name': 'oxidation',
+      'residues': ['S'],
+      'type': 'variable',
+      'mass': 16
+    }
+  ];
+
+  var mods = pepMod.modify('MASSSPEC', modList, 0);
+  t.equal(mods.length, 1, '0 mods works');
+  mods = pepMod.modify('MASSSPEC', modList, 1);
+  t.equal(mods.length, 4, '1 mod works');
+  mods = pepMod.modify('MASSSPEC', modList, 2)
+  t.equal(mods.length, 7, '2 mods works');
+  mods = pepMod.modify('MASSSPEC', modList, 3);
+  t.equal(mods.length, 8, '3 mods works');
+  t.end();
+});
+
+test('Testing unimod integration', function(t) {
+  var modListCustom = [
+    {
+      'name': 'oxidation',
+      'residues': ['M'],
+      'type': 'variable',
+      'mass': 16
+    }
+  ];
+  var modListUnimod = [
+    {
+      'name': 'oxidation',
+      'residues': ['M'],
+      'type': 'variable',
+    }
+  ];
+  var modsCustom = pepMod.modify('MAYBE', modListCustom, 1);
+  var modsUnimod = pepMod.modify('MAYBE', modListUnimod, 1);
+  t.equal(modsCustom[0][0]['mass'], 16, 'Can set custom masses');
+  t.equal(modsUnimod[0][0]['mass'], 15.994915, 'Can use Unimod mass');
 
   t.end();
 });
