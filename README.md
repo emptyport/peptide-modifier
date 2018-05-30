@@ -1,6 +1,6 @@
 # peptide-modifier
 
-This module returns all the possible combinations of modifications for a given peptide sequence, list of modifications, and the maximum number of allowed variable modifications.
+This module returns all the possible combinations of modifications for a given peptide sequence given a list of modifications and the maximum number of allowed variable modifications.
 
 ## Installation
 npm install peptide-modifier --save
