@@ -1,6 +1,6 @@
 {
   "name": "peptide-modifier",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A module to provide the potential modification sites of a peptide",
   "main": "index.js",
   "scripts": {

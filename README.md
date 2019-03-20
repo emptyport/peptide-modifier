@@ -1,5 +1,9 @@
 # peptide-modifier
 
+[![Build Status](https://travis-ci.org/emptyport/peptide-modifier.svg?branch=master)](https://travis-ci.org/emptyport/peptide-modifier)
+[![codecov](https://codecov.io/gh/emptyport/peptide-modifier/branch/master/graph/badge.svg)](https://codecov.io/gh/emptyport/peptide-modifier)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 This module returns all the possible combinations of modifications for a given peptide sequence given a list of modifications and the maximum number of allowed variable modifications.
 
 ## Installation
